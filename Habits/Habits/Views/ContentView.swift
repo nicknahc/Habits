@@ -45,6 +45,15 @@ struct ContentView: View {
                                    .padding()
                            }
                        }
+                       NavigationLink(destination: AddHabitView()){
+                           ZStack {
+                               Color.gray
+                                   .frame(width: 120, height: 120)
+                                   .cornerRadius(5)
+                               Image(systemName: "plus")
+                           }
+                           .padding()
+                       }
                    }
                }
            }
