@@ -10,18 +10,9 @@ import Foundation
 
 
 struct ContentView: View {
-    let habits = [
-       "Exercise",
-       "Reading",
-       "Meditation",
-       "Writing",
-       "Cooking",
-       "Cleaning",
-       "Gardening",
-       "Learning a new language",
-       "Playing a musical instrument",
-       "Volunteering"
-    ]
+    @Environment(\.managedObjectContext) var managedObjectContext
+
+       @FetchRequest(entity: Habit.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Habit.name, ascending: true)]) var habits: FetchedResults<Habit>
     var body: some View {
        NavigationStack {
            VStack {
@@ -35,12 +26,12 @@ struct ContentView: View {
                ScrollView {
                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
                        ForEach(habits, id: \.self) { habit in
-                           NavigationLink(destination: HabitView(habit: habit)){
+                           NavigationLink(destination: HabitView(habit: habit.name)){
                                ZStack {
                                                              Color.gray
                                                               .frame(width: 120, height: 120)
                                                               .cornerRadius(5)
-                                                             Text(habit)
+                                   Text(habit.name)
                                                           }
                                    .padding()
                            }

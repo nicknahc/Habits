@@ -7,11 +7,10 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
-
-struct Habit: Hashable, Codable {
-    var id: Int
-    var name: String
-    var description: String
-    var isCurrent: Bool
+class Habit: NSManagedObject, Identifiable {
+   @NSManaged var id: Int
+   @NSManaged var name: String
+   @NSManaged var isCurrent: Bool
 }
