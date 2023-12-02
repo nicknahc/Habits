@@ -27,7 +27,7 @@ struct ContentView: View {
                                  Color.gray
                                      .frame(width: 120, height: 120)
                                      .cornerRadius(5)
-                                 habit.good == true ? Color.green : Color.red
+                                 habit.isGood == true ? Color.green : Color.red
                                  
                                  Text(habit.name ?? "")
                              }

@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		853AF1632B1B19B4006F2830 /* HabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AF1622B1B19B4006F2830 /* HabitView.swift */; };
-		853AF1692B1B1CD8006F2830 /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AF1662B1B1CD8006F2830 /* AddHabitView.swift */; };
-		853AF16A2B1B1CD8006F2830 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AF1672B1B1CD8006F2830 /* ProfileView.swift */; };
-		853AF16B2B1B1CD8006F2830 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853AF1682B1B1CD8006F2830 /* HistoryView.swift */; };
 		8598E8252B1B13BC0083DB39 /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8598E8242B1B13BC0083DB39 /* HabitsApp.swift */; };
 		8598E8272B1B13BC0083DB39 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8598E8262B1B13BC0083DB39 /* ContentView.swift */; };
 		8598E8292B1B13BE0083DB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8598E8282B1B13BE0083DB39 /* Assets.xcassets */; };
@@ -20,6 +17,9 @@
 		8598E83B2B1B13BE0083DB39 /* HabitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8598E83A2B1B13BE0083DB39 /* HabitsTests.swift */; };
 		8598E8452B1B13BE0083DB39 /* HabitsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8598E8442B1B13BE0083DB39 /* HabitsUITests.swift */; };
 		8598E8472B1B13BE0083DB39 /* HabitsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8598E8462B1B13BE0083DB39 /* HabitsUITestsLaunchTests.swift */; };
+		85EEE5D02B1BE877002949BD /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EEE5CF2B1BE877002949BD /* AddHabitView.swift */; };
+		85EEE5D22B1BE88F002949BD /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EEE5D12B1BE88F002949BD /* HistoryView.swift */; };
+		85EEE5D42B1BE8AD002949BD /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EEE5D32B1BE8AD002949BD /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,9 +41,6 @@
 
 /* Begin PBXFileReference section */
 		853AF1622B1B19B4006F2830 /* HabitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HabitView.swift; path = ../../../../../.Trash/HabitView.swift; sourceTree = "<group>"; };
-		853AF1662B1B1CD8006F2830 /* AddHabitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddHabitView.swift; path = ../../../../../.Trash/Habits/Habits/Views/AddHabitView.swift; sourceTree = "<group>"; };
-		853AF1672B1B1CD8006F2830 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = ../../../../../.Trash/Habits/Habits/Views/ProfileView.swift; sourceTree = "<group>"; };
-		853AF1682B1B1CD8006F2830 /* HistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HistoryView.swift; path = ../../../../../.Trash/Habits/Habits/Views/HistoryView.swift; sourceTree = "<group>"; };
 		8598E8212B1B13BC0083DB39 /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8598E8242B1B13BC0083DB39 /* HabitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsApp.swift; sourceTree = "<group>"; };
 		8598E8262B1B13BC0083DB39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +53,9 @@
 		8598E8402B1B13BE0083DB39 /* HabitsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8598E8442B1B13BE0083DB39 /* HabitsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsUITests.swift; sourceTree = "<group>"; };
 		8598E8462B1B13BE0083DB39 /* HabitsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		85EEE5CF2B1BE877002949BD /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
+		85EEE5D12B1BE88F002949BD /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		85EEE5D32B1BE8AD002949BD /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,9 +145,9 @@
 			isa = PBXGroup;
 			children = (
 				853AF1622B1B19B4006F2830 /* HabitView.swift */,
-				853AF1662B1B1CD8006F2830 /* AddHabitView.swift */,
-				853AF1682B1B1CD8006F2830 /* HistoryView.swift */,
-				853AF1672B1B1CD8006F2830 /* ProfileView.swift */,
+				85EEE5CF2B1BE877002949BD /* AddHabitView.swift */,
+				85EEE5D32B1BE8AD002949BD /* ProfileView.swift */,
+				85EEE5D12B1BE88F002949BD /* HistoryView.swift */,
 				8598E8262B1B13BC0083DB39 /* ContentView.swift */,
 			);
 			path = Views;
@@ -284,13 +284,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8598E82E2B1B13BE0083DB39 /* Persistence.swift in Sources */,
-				853AF16B2B1B1CD8006F2830 /* HistoryView.swift in Sources */,
 				8598E8272B1B13BC0083DB39 /* ContentView.swift in Sources */,
 				8598E8312B1B13BE0083DB39 /* Habits.xcdatamodeld in Sources */,
 				853AF1632B1B19B4006F2830 /* HabitView.swift in Sources */,
+				85EEE5D02B1BE877002949BD /* AddHabitView.swift in Sources */,
 				8598E8252B1B13BC0083DB39 /* HabitsApp.swift in Sources */,
-				853AF16A2B1B1CD8006F2830 /* ProfileView.swift in Sources */,
-				853AF1692B1B1CD8006F2830 /* AddHabitView.swift in Sources */,
+				85EEE5D22B1BE88F002949BD /* HistoryView.swift in Sources */,
+				85EEE5D42B1BE8AD002949BD /* ProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
