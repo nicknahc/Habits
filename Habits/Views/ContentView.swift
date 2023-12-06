@@ -156,10 +156,11 @@ struct ContentView: View {
                             self.showHelpOverlay = false
                         }
                     VStack {
-                        Text("Help Overlay")
+                        Text("Need Help?")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                        Text("Double-Tap Habits to indicate that you completed them today. You can also click the info button in the top right corner of each Habit and complete it there. Tap the 🕘 button to see Archived Habits. Tap one of the inspired Habits to add it to your own Habits.")
+                            .font(.body)
                         Button("Dismiss") {
                             self.showHelpOverlay = false
                         }
