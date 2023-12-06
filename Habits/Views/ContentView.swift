@@ -23,11 +23,25 @@ struct ContentView: View {
                             ZStack {
                                 let habitColor = habit.isGood == true ? Color.green : Color.red
                                 let modifiedColor = habit.goalFulfilled ? habitColor.opacity(1.0) : habitColor.opacity(0.8)
+                                
                                 Rectangle()
                                     .fill(modifiedColor)
                                     .frame(width: 120, height: 120)
                                     .cornerRadius(5)
-                                Text(habit.name ?? "")
+                                
+                                VStack(spacing: 0) {
+                                    Spacer()
+                                    Text(habit.name ?? "")
+                                        .font(.headline)
+                                        .multilineTextAlignment(.center)
+                                        .frame(width: 100) // Limit the width to maintain centering
+                                    
+                                    Text("\(consistencyPercentage(for: habit))% Consistent")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                        .padding(.bottom, 8)
+                                }
+                                
                                 HStack {
                                     Spacer()
                                     VStack {
@@ -42,6 +56,8 @@ struct ContentView: View {
                                     }
                                 }
                             }
+
+
                             .padding()
                             .onTapGesture(count: 2) {
                               if !habit.goalFulfilled {
@@ -72,7 +88,7 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
                         let existingHabitNames = Set(habits.map { $0.name })
-                     ForEach(sampleHabits.filter { !existingHabitNames.contains($0.name) }, id: \.name) { sampleHabit in
+                      ForEach(sampleHabits.filter { !existingHabitNames.contains($0.name) }, id: \.name) { sampleHabit in
                            ZStack {
                                let habitColor = sampleHabit.isGood == true ? Color.green : Color.red
                                Rectangle()
@@ -146,6 +162,22 @@ struct ContentView: View {
            print("Failed to increment habit days progress: \(error)")
        }
     }
+    
+    func consistencyPercentage(for habit: Habit) -> Int {
+      let now = Date()
+      let creationDate = habit.createdAt ?? now
+      let components = Calendar.current.dateComponents([.day], from: creationDate, to: now)
+      if let days = components.day, days > 0 {
+          let daysInt = Int(days)
+          let progressDaysInt = Int(habit.progressDays)
+          let consistencyPercentage = (progressDaysInt / daysInt) * 100
+          return Int(consistencyPercentage)
+      } else {
+          return 0
+      }
+    }
+
+    
 
 }
 

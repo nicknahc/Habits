@@ -28,56 +28,68 @@ struct HabitView: View {
      }
     
     var body: some View {
-        VStack {
+        VStack (alignment: .leading, spacing: 20){
             TextField("Habit Name", text: $habitName, onCommit: saveHabit)
                           .font(.largeTitle)
-                          .padding()
-            TextField("Goal", text: $goal, onCommit: saveHabit)
-                          .font(.largeTitle)
-                          .padding()
-            Text("Days since start: \(daysSinceCreation())")
-                           .font(.caption)
-                           .padding()
-            Text("Days of Progress: \(habit.progressDays)")
-            Button(action: {
-                        habit.goalFulfilled.toggle()
-                        
-                        // Trigger bounce animation
-                        withAnimation(.interpolatingSpring(mass: 1, stiffness: 100, damping: 10, initialVelocity: 0)) {
-                            self.bounceAnimation.toggle()
-                            self.buttonScale = 0.9
-                        }
-                        
-                        // Reset button scale after animation completes
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            withAnimation {
-                                self.buttonScale = 1.0
-                            }
-                        }
-                    }) {
-                        Text("Goal Fulfilled?")
-                            .padding()
-                            .foregroundColor(.white)
-                    }
-                    .background(Capsule()
-                        .fill(habit.goalFulfilled ? Color.green : Color.red))
-                    .clipShape(Capsule())
-                    .scaleEffect(buttonScale)
-                    .animation(.easeInOut(duration: 0.25))
+            HStack{
+                TextEditor(text: $goal)
+                    .monospaced()
+                    .frame(minHeight: 100) // Set a minimum height to allow multiple lines
+                    .lineSpacing(5) // Adjust line spacing if needed
                     .padding()
-                    .animation(nil)
-
-            Button(action: {
+                    Spacer()
+            }
+            
+            VStack (alignment: .center){
+                Spacer()
+                HStack{
+                    Spacer()
+                    Button(action: {
+                    habit.goalFulfilled.toggle()
+                    // Trigger bounce animation
+                    withAnimation(.interpolatingSpring(mass: 1, stiffness: 100, damping: 10, initialVelocity: 1)) {
+                        self.bounceAnimation.toggle()
+                        self.buttonScale = 0.9
+                    }
+                    // Reset button scale after animation completes
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                        withAnimation {
+                            self.buttonScale = 1.0
+                        }
+                    }
+                }) {
+                    Text("Goal Fulfilled Today?")
+                        .padding()
+                        .foregroundColor(.white)
+                }
+                .background(Capsule()
+                    .fill(habit.goalFulfilled ? Color.green : Color.red))
+                .clipShape(Capsule())
+                .scaleEffect(buttonScale)
+                .animation(.easeInOut(duration: 0.25), value: buttonScale)
+                .padding()
+                    Spacer()
+                }
+                    
+                Spacer()
+            }
+            .padding()
+    
+           
+        }
+        .navigationBarTitle("Habit Details", displayMode: .inline)
+        .padding()
+        VStack(alignment: .center){
+            Spacer()
+            Button("Delete Habit") {
                 showingDeleteConfirmation = true
-            }) {
-                Text("Delete Habit")
-                    .foregroundColor(.red)
             }
             .confirmationDialog("Are you sure you want to delete this habit?", isPresented: $showingDeleteConfirmation, titleVisibility: .visible) {
                 Button("Delete", role: .destructive) {
                     deleteHabit()
                     showingDeleteConfirmation = false
                 }
+                
             }
             Button(action: {
                 showingArchiveRestoreConfirmation = true
@@ -101,7 +113,6 @@ struct HabitView: View {
                 }
             }
         }
-        .navigationBarTitle("Habit Details", displayMode: .inline)
     }
 
     func archiveHabit() {
