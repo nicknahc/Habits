@@ -34,24 +34,21 @@ struct HabitView: View {
             HStack{
                 TextEditor(text: $goal)
                     .monospaced()
-                    .frame(minHeight: 100) // Set a minimum height to allow multiple lines
-                    .lineSpacing(5) // Adjust line spacing if needed
+                    .frame(minHeight: 100)
+                    .lineSpacing(5)
                     .padding()
                     Spacer()
             }
-            
             VStack (alignment: .center){
                 Spacer()
                 HStack{
                     Spacer()
                     Button(action: {
                     habit.goalFulfilled.toggle()
-                    // Trigger bounce animation
                     withAnimation(.interpolatingSpring(mass: 1, stiffness: 100, damping: 10, initialVelocity: 1)) {
                         self.bounceAnimation.toggle()
                         self.buttonScale = 0.9
                     }
-                    // Reset button scale after animation completes
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                         withAnimation {
                             self.buttonScale = 1.0

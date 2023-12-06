@@ -24,7 +24,6 @@ struct HistoryView: View {
                                 Color.gray
                                     .frame(width: 120, height: 120)
                                     .cornerRadius(5)
-                                // Customize this part based on your habit's attributes
                                 Text(habit.name ?? "")
                             }
                             .padding()

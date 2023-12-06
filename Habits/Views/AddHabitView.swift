@@ -18,13 +18,11 @@ struct AddHabitView: View {
                   Spacer()
                   Button(action: {
                       isGood.toggle()
-                      // Trigger bounce animation
                       withAnimation(.interpolatingSpring(mass: 1, stiffness: 100, damping: 10, initialVelocity: 1)) {
                           self.bounceAnimation.toggle()
                           self.buttonScale = 0.9
                       }
                       
-                      // Reset button scale after animation completes
                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                           withAnimation {
                               self.buttonScale = 1.0

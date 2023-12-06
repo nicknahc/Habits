@@ -5,6 +5,7 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Habit.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Habit.name, ascending: true)], predicate: NSPredicate(format: "archived == %@", NSNumber(value: false))) var habits: FetchedResults<Habit>
+    @State private var showHelpOverlay = false
 
 
     var body: some View {
@@ -87,15 +88,22 @@ struct ContentView: View {
                         .padding(.leading, 12.0)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
-                        let existingHabitNames = Set(habits.map { $0.name })
-                      ForEach(sampleHabits.filter { !existingHabitNames.contains($0.name) }, id: \.name) { sampleHabit in
+                       let existingHabitNames = Set(habits.map { $0.name })
+                       ForEach(sampleHabits.filter { !existingHabitNames.contains($0.name) }, id: \.name) { sampleHabit in
                            ZStack {
                                let habitColor = sampleHabit.isGood == true ? Color.green : Color.red
                                Rectangle()
                                    .fill(habitColor)
                                    .frame(width: 120, height: 120)
                                    .cornerRadius(5)
-                               Text(sampleHabit.name)
+                               VStack {
+                                   Spacer()
+                                   Text(sampleHabit.name)
+                                      .font(.headline)
+                                      .multilineTextAlignment(.center)
+                                      .frame(width: 100) // Limit the width to maintain centering
+                                   Spacer()
+                               }
                            }
                            .padding()
                            .onTapGesture {
@@ -103,6 +111,7 @@ struct ContentView: View {
                            }
                        }
                     }
+
 
                 }
             }
@@ -115,6 +124,13 @@ struct ContentView: View {
                         Image(systemName: "clock")
                     }
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                       Button(action: {
+                           self.showHelpOverlay.toggle()
+                       }) {
+                           Image(systemName: "questionmark.circle")
+                       }
+               }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: ProfileView()){
                         Image(systemName: "person.crop.circle")
@@ -131,7 +147,38 @@ struct ContentView: View {
                 }
             }
         }
+        .overlay(
+            Group {
+                if showHelpOverlay {
+                    Color.black.opacity(0.4)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            self.showHelpOverlay = false
+                        }
+                    VStack {
+                        Text("Help Overlay")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        Button("Dismiss") {
+                            self.showHelpOverlay = false
+                        }
+                        .padding()
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(20)
+                    .shadow(radius: 20)
+                }
+            }
+        )
+
+
     }
+    
     func addHabit(name: String, isGood: Bool, goal: String) {
        let newHabit = Habit(context: self.managedObjectContext)
        newHabit.name = name
@@ -188,9 +235,12 @@ struct SampleHabit {
 }
 
 let sampleHabits = [
-   SampleHabit(name: "Meditation", isGood: true, goal: "15 minutes of meditation daily"),
-   SampleHabit(name: "Screen Time", isGood: false, goal: "Under 2 hours of Screen Time daily"),
-   // Add more sample habits as needed
+   SampleHabit(name: "Meditation 🧘‍♀️🧘", isGood: true, goal: "15 minutes of meditation daily"),
+   SampleHabit(name: "Screen Time 📲", isGood: false, goal: "Under 2 hours of Screen Time daily"),
+   SampleHabit(name: "Jogging 🏃‍♀️🏃", isGood: true, goal: "20 Minutes of Jogging Daily"),
+   SampleHabit(name: "Drinking Water 🚰", isGood: true, goal: "5 Cups of Water Daily"),
+   SampleHabit(name: "Sleep 💤", isGood: true, goal: "8 Hours of Sleep Nightly"),
+   SampleHabit(name: "Eating Candy 🍫", isGood: false, goal: "No Candy Eaten"),
 ]
 
 
