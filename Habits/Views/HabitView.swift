@@ -107,7 +107,7 @@ struct HabitView: View {
                     showingArchiveRestoreConfirmation = true
                 }) {
                     if habit.archived {
-                        Text("Restore Archive")
+                        Text("Restore Habit")
                             .foregroundColor(.green)
                     } else {
                         Text("Archive Habit")
@@ -138,7 +138,7 @@ struct HabitView: View {
                       Text("Need Help?")
                          .font(.title)
                          .fontWeight(.bold)
-                      Text("You can tap the Habit name or goal to change it. Tap the 'Goal Fulfilled' button to toggle whether or not you have completed that goal for today. Green means completed and Red means incomplete. The 'Delete Habit' Button will delete the habit permanently while the 'Archive Habit' button will simply move the habit to Archived Habits.")
+                      Text("You can tap the Habit name or goal to change it. Tap the 'Goal Fulfilled' button to toggle whether or not you have completed that goal for today. Green means completed and Red means incomplete. The 'Delete Habit' Button will delete the habit permanently while the 'Archive Habit' button will simply move the habit to Archived Habits. The 'Restore Habit' will move the habit back to the homepage.")
                          .font(.body)
                       Button("Dismiss") {
                          self.showHelpOverlay = false

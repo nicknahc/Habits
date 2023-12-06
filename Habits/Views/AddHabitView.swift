@@ -5,10 +5,12 @@ import Foundation
 struct AddHabitView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
   @State private var habitName = ""
-  @State private var isGood = false
+  @State private var isGood = true
   @State private var goal = ""
   @State private var bounceAnimation: Bool = false
   @State private var buttonScale: CGFloat = 1.0
+  @State private var hasTriedToSave = false
+
   var body: some View {
       NavigationView {
           Form {
@@ -50,20 +52,29 @@ struct AddHabitView: View {
               Text("Save")
           })
       }
+      .alert(isPresented: $hasTriedToSave) {
+         Alert(title: Text("Error"), message: Text("Please fill in all fields."), dismissButton: .default(Text("OK")))
+      }
+
   }
 
   @Environment(\.presentationMode) var presentationMode
-  func addHabit() {
-      let newHabit = Habit(context: self.managedObjectContext)
-      newHabit.name = habitName
-      newHabit.isGood = isGood
-      newHabit.createdAt = Date()
-      newHabit.goal = goal
-      do {
-          try self.managedObjectContext.save()
-          self.presentationMode.wrappedValue.dismiss()
-      } catch {
-          print("Failed saving")
-      }
-   }
+    func addHabit() {
+       if habitName.isEmpty || goal.isEmpty {
+           hasTriedToSave = true
+       } else {
+           let newHabit = Habit(context: self.managedObjectContext)
+           newHabit.name = habitName
+           newHabit.isGood = isGood
+           newHabit.createdAt = Date()
+           newHabit.goal = goal
+           do {
+               try self.managedObjectContext.save()
+               self.presentationMode.wrappedValue.dismiss()
+           } catch {
+               print("Failed saving")
+           }
+       }
+    }
+
 }
