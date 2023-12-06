@@ -40,6 +40,9 @@ struct HabitView: View {
                         .frame(minHeight: 100)
                         .lineSpacing(5)
                         .padding()
+                        .onChange(of: goal) { newValue in
+                              saveHabit()
+                          }
                     Spacer()
                 }
                 VStack (alignment: .center){
