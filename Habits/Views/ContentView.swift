@@ -44,7 +44,13 @@ struct ContentView: View {
                             }
                             .padding()
                             .onTapGesture(count: 2) {
-                               habit.goalFulfilled.toggle()
+                              if !habit.goalFulfilled {
+//                                  withAnimation(.spring(response: 0.3, dampingFraction: 0.3)) {
+                                      habit.goalFulfilled.toggle()
+//                                  }
+                              } else {
+                                  habit.goalFulfilled.toggle()
+                              }
                             }
                         }
                         NavigationLink(destination: AddHabitView()){

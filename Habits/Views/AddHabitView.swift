@@ -6,12 +6,13 @@ struct AddHabitView: View {
   @Environment(\.managedObjectContext) var managedObjectContext
   @State private var habitName = ""
   @State private var isGood = false
-
+  @State private var goal = ""
   var body: some View {
       NavigationView {
           Form {
               TextField("Habit Name", text: $habitName)
               Toggle("Good", isOn: $isGood)
+              TextField("Goal", text: $goal)
           }
           .navigationBarTitle("Add Habit")
           .navigationBarItems(trailing: Button(action: {
@@ -28,6 +29,7 @@ struct AddHabitView: View {
       newHabit.name = habitName
       newHabit.isGood = isGood
       newHabit.createdAt = Date()
+      newHabit.goal = goal
       do {
           try self.managedObjectContext.save()
           self.presentationMode.wrappedValue.dismiss()
