@@ -17,10 +17,14 @@ struct HabitView: View {
     @State private var showingArchiveRestoreConfirmation = false
     @State private var habitName = ""
     @State private var goal = ""
+    @State private var goalFulfilled = false
+    @State private var bounceAnimation: Bool = false
+    @State private var buttonScale: CGFloat = 1.0
     init(habit: Habit) {
          self.habit = habit
          _habitName = State(initialValue: habit.name ?? "")
          _goal = State(initialValue: habit.goal ?? "")
+        _goalFulfilled=State(initialValue: habit.goalFulfilled)
      }
     
     var body: some View {
@@ -35,6 +39,34 @@ struct HabitView: View {
                            .font(.caption)
                            .padding()
             Text("Days of Progress: \(habit.progressDays)")
+            Button(action: {
+                        habit.goalFulfilled.toggle()
+                        
+                        // Trigger bounce animation
+                        withAnimation(.interpolatingSpring(mass: 1, stiffness: 100, damping: 10, initialVelocity: 0)) {
+                            self.bounceAnimation.toggle()
+                            self.buttonScale = 0.9
+                        }
+                        
+                        // Reset button scale after animation completes
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation {
+                                self.buttonScale = 1.0
+                            }
+                        }
+                    }) {
+                        Text("Goal Fulfilled?")
+                            .padding()
+                            .foregroundColor(.white)
+                    }
+                    .background(Capsule()
+                        .fill(habit.goalFulfilled ? Color.green : Color.red))
+                    .clipShape(Capsule())
+                    .scaleEffect(buttonScale)
+                    .animation(.easeInOut(duration: 0.25))
+                    .padding()
+                    .animation(nil)
+
             Button(action: {
                 showingDeleteConfirmation = true
             }) {

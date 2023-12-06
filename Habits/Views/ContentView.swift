@@ -4,9 +4,9 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    
     @FetchRequest(entity: Habit.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Habit.name, ascending: true)], predicate: NSPredicate(format: "archived == %@", NSNumber(value: false))) var habits: FetchedResults<Habit>
-    
+
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -70,6 +70,24 @@ struct ContentView: View {
                         .multilineTextAlignment(.leading)
                         .padding(.leading, 12.0)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
+                        let existingHabitNames = Set(habits.map { $0.name })
+                     ForEach(sampleHabits.filter { !existingHabitNames.contains($0.name) }, id: \.name) { sampleHabit in
+                           ZStack {
+                               let habitColor = sampleHabit.isGood == true ? Color.green : Color.red
+                               Rectangle()
+                                   .fill(habitColor)
+                                   .frame(width: 120, height: 120)
+                                   .cornerRadius(5)
+                               Text(sampleHabit.name)
+                           }
+                           .padding()
+                           .onTapGesture {
+                               self.addHabit(name: sampleHabit.name, isGood: sampleHabit.isGood, goal: sampleHabit.goal)
+                           }
+                       }
+                    }
+
                 }
             }
             .padding(.top)
@@ -98,6 +116,18 @@ struct ContentView: View {
             }
         }
     }
+    func addHabit(name: String, isGood: Bool, goal: String) {
+       let newHabit = Habit(context: self.managedObjectContext)
+       newHabit.name = name
+       newHabit.isGood = isGood
+       newHabit.createdAt = Date()
+       newHabit.goal = goal
+       do {
+           try self.managedObjectContext.save()
+       } catch {
+           print("Failed saving")
+       }
+    }
     
     func incrementHabitDaysProgress() {
        let context = managedObjectContext
@@ -119,9 +149,23 @@ struct ContentView: View {
 
 }
 
+struct SampleHabit {
+   let name: String
+   let isGood: Bool
+   let goal: String
+}
+
+let sampleHabits = [
+   SampleHabit(name: "Meditation", isGood: true, goal: "15 minutes of meditation daily"),
+   SampleHabit(name: "Screen Time", isGood: false, goal: "Under 2 hours of Screen Time daily"),
+   // Add more sample habits as needed
+]
+
+
 
 struct ContentView_Previews: PreviewProvider {
  static var previews: some View {
  ContentView()
  }
 }
+
